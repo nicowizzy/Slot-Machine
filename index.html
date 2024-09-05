@@ -16,9 +16,10 @@
     <body>
         <div id="app">
             <div class="balance">
-                <h2>Balance:</h2>
-                <h2 id="balance">100</h2>
-                <h2>€</h2></div>
+                <h2 class="balance">Balance:</h2>
+                <h2 class="balance" id="balance">100</h2>
+                <h2 class="balance">€</h2>
+            </div>
             <div class="doors">
                 <div class="door">
                     <div class="boxes">
@@ -36,9 +37,15 @@
                 </div>
             </div>
             <div class="actions">
-                <input id="betInput" type="text" placeholder="Bet Amount">
+                <input id="betInput" type="text" placeholder="Amount">
                 <button id="spinner">Spin</button>
                 <button id="resetter">Reset</button>
+            </div>
+            <div class ="winField">
+                <p id="winOrLose">Gambling addiction is no joke.</p>
+            </div>
+            <div class ="expl">
+                <p id="expl">😅 = 100 %, 🦆 = 125 %, 🚀 = 150 %, 🤑 = 200 %</p>
             </div>
         </div>
         <script src="script.js"></script>
