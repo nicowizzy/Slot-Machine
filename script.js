@@ -2,12 +2,16 @@
     "use strict";
   
     const items = [
-      "🚀",
-      "❌",
       "😅",
-      "👁‍🗨",
-      "🤑",
-      "🦆"
+      "😅",
+      "😅",
+      "😅",
+      "🦆",
+      "🦆",
+      "🦆",
+      "🚀",
+      "🚀",
+      "🤑"
     ];
   
     const doors = document.querySelectorAll(".door");
@@ -48,7 +52,7 @@
             function () {
               door.dataset.spinned = "1";
               this.querySelectorAll(".box").forEach((box) => {
-                box.style.filter = "blur(5px)";
+                box.style.filter = "blur(2px)";
               });
             },
             { once: true }
@@ -92,5 +96,6 @@
     }
   
     init();
-  })();
+  }
+)();
   
