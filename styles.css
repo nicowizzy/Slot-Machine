@@ -1,0 +1,86 @@
+body {
+    font-family: Poppins;
+    background-color: #36393e;
+    color: #7289da;
+}
+
+#app {
+    width: fit-content;
+    height: fit-content;
+    padding: 50px;
+    background-color: #1e2124;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.balance {
+    display: inline;
+    margin-bottom: 70px;
+}
+
+.doors {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.door {
+    background: white;
+    box-shadow: 0 0 3px 2px rgba(0,0,0,.4) inset;
+    width: 150px;
+    height: 225px;
+    overflow: hidden;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.boxes {
+    transition: transform .75s ease-in-out;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+
+
+
+#betInput {
+    width: 75px;
+    height: 25px;
+    text-align: center;
+}
+
+.buttons {
+    margin: 1rem 0 2rem 0;
+}
+
+button {
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 75px;
+    height: 31.4px;
+    text-align: center;
+}
+
+.winField {
+    background-color: #ffca4f;
+    color: #1e2124;
+    padding: 5px;
+    width: fit-content;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+.expl {
+    margin-top: 100px;
+}
