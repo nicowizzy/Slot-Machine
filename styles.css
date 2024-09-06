@@ -38,7 +38,7 @@ body {
 }
 
 .boxes {
-    transition: transform 1s ease-in-out;
+    transition: transform .75s ease-in-out;
 }
 
 .box {
