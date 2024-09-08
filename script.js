@@ -85,6 +85,22 @@
         door.replaceChild(boxesClone, boxes);
       }
     }
+
+    function checkForWin() {
+      const symbols = [];
+
+      doors.forEach(door => {
+        const boxes = door.querySelectorAll(".boxes");
+        const box = boxes.querySelector(".box");
+        symbols.push(box.textContent);
+      });
+
+      if (symbols[0] === symbols[1] && symbols[1] === symbols[2]) {
+        return symbols[0];
+      } else {
+        return null;
+      }
+    }
   
     function shuffle([...arr]) {
       let m = arr.length;
