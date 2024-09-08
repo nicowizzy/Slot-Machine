@@ -17,8 +17,22 @@
     const doors = document.querySelectorAll(".door");
     document.querySelector("#spinner").addEventListener("click", spin);
     document.querySelector("#resetter").addEventListener("click", init);
+    const winOrloseText = document.querySelector("#winOrLose");
   
     async function spin() {
+      const bet = parseInt(document.querySelector("#betInput"). value);
+      let balance = parseInt(document.querySelector("#balance").textContent);
+
+      if (isNaN(bet) || bet > balance || bet <= 0) {
+        winOrloseText.textContent = `Invalid bet.`;
+        return;
+      }
+
+      if (!checkForReset()) {
+        winOrloseText.textContent = `You have to reset the game before you can continue to spin.`;
+        return;
+      }
+
       init(false, 1, 2);
       for (const door of doors) {
         const boxes = door.querySelector(".boxes");
@@ -26,9 +40,38 @@
         boxes.style.transform = "translateY(0)";
         await new Promise((resolve) => setTimeout(resolve, duration * 100));
       }
+
+      await timeout(2000);
+      const winningSymbol = checkForWin();
+
+      if (winningSymbol) {
+        let multiplier = 0;
+        switch (winningSymbol) {
+          case "😅":
+            multiplier = 2;
+            break;
+          case "🦆":
+            multiplier = 4;
+            break;
+          case "🚀":
+            multiplier = 7;
+            break;
+          case "🤑":
+            multiplier = 10;
+            break;
+        }
+        const winnings = bet * multiplier;
+        balance += winnings;
+        winOrloseText.textContent = `Nice! You won ${winnings}€.`;
+      } else {
+        balance -= bet;
+        winOrloseText.textContent = `No win for you...`;
+      }
+      document.querySelector("#balance").textContent = balance;
     }
   
     function init(firstInit = true, groups = 1, duration = 1) {
+      winOrloseText.textContent = "Gambling addiction is no joke.";
       for (const door of doors) {
         if (firstInit) {
           door.dataset.spinned = "0";
@@ -85,6 +128,36 @@
         door.replaceChild(boxesClone, boxes);
       }
     }
+
+    function checkForWin() {
+      const symbols = [];
+
+      doors.forEach(door => {
+        const box = door.querySelector(".box");
+        symbols.push(box.textContent);
+      });
+
+      if (symbols[0] === symbols[1] && symbols[1] === symbols[2]) {
+        return symbols[0];
+      } else {
+        return null;
+      }
+    }
+
+    function checkForReset() {
+      const symbols = [];
+
+      doors.forEach(door => {
+        const box = door.querySelector(".box");
+        symbols.push(box.textContent);
+      });
+
+      if (symbols[0] == "❓" && symbols[1] == "❓" && symbols[2] == "❓") {
+        return true;
+      } else {
+        return false;
+      }
+    }
   
     function shuffle([...arr]) {
       let m = arr.length;
@@ -93,6 +166,10 @@
         [arr[m], arr[i]] = [arr[i], arr[m]];
       }
       return arr;
+    }
+
+    function timeout(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
   
     init();
