@@ -42,16 +42,16 @@
         let multiplier = 0;
         switch (winningSymbol) {
           case "😅":
-            multiplier = 1;
-            break;
-          case "🦆":
             multiplier = 2;
             break;
+          case "🦆":
+            multiplier = 4;
+            break;
           case "🚀":
-            multiplier = 3;
+            multiplier = 7;
             break;
           case "🤑":
-            multiplier = 5;
+            multiplier = 10;
             break;
         }
         const winnings = bet * multiplier;
