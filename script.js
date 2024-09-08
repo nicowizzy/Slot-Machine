@@ -17,8 +17,17 @@
     const doors = document.querySelectorAll(".door");
     document.querySelector("#spinner").addEventListener("click", spin);
     document.querySelector("#resetter").addEventListener("click", init);
+    const winOrloseText = document.querySelector("#winOrLose");
   
     async function spin() {
+      const bet = parseInt(document.querySelector("#betInput"). value);
+      let balance = parseInt(document.querySelector("#balance").textContent);
+
+      if (isNaN(bet) || bet > balance || bet <= 0) {
+        winOrloseText.textContent = `Invalid bet.`;
+        return;
+      }
+
       init(false, 1, 2);
       for (const door of doors) {
         const boxes = door.querySelector(".boxes");
@@ -26,9 +35,37 @@
         boxes.style.transform = "translateY(0)";
         await new Promise((resolve) => setTimeout(resolve, duration * 100));
       }
+
+      const winningSymbol = checkForWin();
+
+      if (winningSymbol) {
+        let multiplier = 0;
+        switch (winningSymbol) {
+          case "😅":
+            multiplier = 1;
+            break;
+          case "🦆":
+            multiplier = 2;
+            break;
+          case "🚀":
+            multiplier = 3;
+            break;
+          case "🤑":
+            multiplier = 5;
+            break;
+        }
+        const winnings = bet * multiplier;
+        balance += winnings;
+        winOrloseText.textContent = `Nice! You won ${winnings}€.`;
+      } else {
+        balance -= bet;
+        winOrloseText.textContent = `No win for you...`;
+      }
+      document.querySelector("#balance").textContent = balance;
     }
   
     function init(firstInit = true, groups = 1, duration = 1) {
+      winOrloseText.textContent = "Gambling addiction is no joke.";
       for (const door of doors) {
         if (firstInit) {
           door.dataset.spinned = "0";
@@ -90,8 +127,7 @@
       const symbols = [];
 
       doors.forEach(door => {
-        const boxes = door.querySelectorAll(".boxes");
-        const box = boxes.querySelector(".box");
+        const box = door.querySelector(".box");
         symbols.push(box.textContent);
       });
 
