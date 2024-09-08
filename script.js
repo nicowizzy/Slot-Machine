@@ -28,6 +28,11 @@
         return;
       }
 
+      if (!checkForReset()) {
+        winOrloseText.textContent = `You have to reset the game before you can continue to spin.`;
+        return;
+      }
+
       init(false, 1, 2);
       for (const door of doors) {
         const boxes = door.querySelector(".boxes");
@@ -36,6 +41,7 @@
         await new Promise((resolve) => setTimeout(resolve, duration * 100));
       }
 
+      await timeout(2000);
       const winningSymbol = checkForWin();
 
       if (winningSymbol) {
@@ -137,6 +143,21 @@
         return null;
       }
     }
+
+    function checkForReset() {
+      const symbols = [];
+
+      doors.forEach(door => {
+        const box = door.querySelector(".box");
+        symbols.push(box.textContent);
+      });
+
+      if (symbols[0] == "❓" && symbols[1] == "❓" && symbols[2] == "❓") {
+        return true;
+      } else {
+        return false;
+      }
+    }
   
     function shuffle([...arr]) {
       let m = arr.length;
@@ -145,6 +166,10 @@
         [arr[m], arr[i]] = [arr[i], arr[m]];
       }
       return arr;
+    }
+
+    function timeout(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
   
     init();
